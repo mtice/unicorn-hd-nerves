@@ -125,3 +125,10 @@ erl_crash.dump
 *.beam
 /config/*.secret.exs
 .elixir_ls/
+*/.upload.sh
+
+# Other
+.DS_Store
+*/.vscode/*
+.vscode/*
+

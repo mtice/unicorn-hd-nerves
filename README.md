@@ -1,6 +1,45 @@
-Reverse engineering the unicorn hat hd examples and recreating in nerves.
+# Description
+Derived from [Official Unicorn Python Library](https://github.com/pimoroni/unicorn-hat-hd).
+I extracted how the call to [spidev.xfer2 call](https://github.com/pimoroni/unicorn-hat-hd/blob/586c295077950583b8a1d84141e87f30334b236d/library/unicornhathd/__init__.py#L279) was being built and remade it in Elixir. I included the python mock [here](/py_sandbox) if you want to see how I did it.
 
-All code based on:
 
-Unicorn Python: https://github.com/pimoroni/unicorn-hat-hd
-Greg Mefford Blinkchain: https://github.com/GregMefford/blinkchain
+The only example so far can be found in `/unicorn_hadhd/examples/line_rotate/`. This was an Elixir re-creation of [line.py](https://github.com/pimoroni/unicorn-hat-hd/blob/master/examples/line.py).
+![line_rotate](resources/line_rotate_100.gif)
+
+I originally set out to incorporate the HatHD board functionality into [Greg Meffords Blinkchain](https://github.com/GregMefford/blinkchain). But the SPI was enough to confuse me into creating my own repo. And subsequently removing all of the interesting and impressive stuff from Gregs code.
+
+## Usage
+#### line rotate
+> cd ./unicorn_hadhd/examples/line_rotate/
+> mix deps.get
+> mix firmware
+> mix firmware.burn
+
+Pull it out. Stick it in to target device.
+
+
+#### On target
+
+If you are to be updating this code and want to update over ssh, Configure `unicorn_hathd/examples/line_rotate/config/config.exs` according to [nerves-init-gadget](https://github.com/nerves-project/nerves_init_gadget).
+
+The [UnicornHathd](unicorn_hathd/lib/unicorn_hathd.ex) module has base draw functions.
+
+[UnicornHathd.Matrix](unicorn_hathd/lib/unicorn_hathd/matrix.ex) Does all the Matrix transforms.
+
+[UnicornHathd.Display](unicorn_hathd/lib/unicorn_hathd/display.ex) Wraps the SPI functionality.
+
+
+
+
+Do what you need to do to burn firmware onto sd. I have this setup for `eth0` updates. Change what you need if you are planning on updating through usb. Or just leave alone if you are just in it for the magic.
+ex. of firmware burn:
+
+
+
+On host:
+`ssh nerves.local`
+On device:
+
+
+> mix deps.get
+> Line_rot

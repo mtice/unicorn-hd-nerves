@@ -295,8 +295,10 @@ def show():
                 time.sleep(_DELAY)
     else:
         rotated = numpy.rot90(_buf, _rotation)
+        print('reshaped:: : {}'.format(rotated.reshape(768)))
         reshapeXbrightness = (rotated.reshape(768) * _brightness)
-        rxbAsUnit8 = reshapeXbrightness.astype(numpy.uint8)
+        rxbAsUnit8 = reshapeXbrightness.astype(numpy.uint8).toList()
+        print('list:: {}', rxbAsUnit8)
         # logging.error('_SOF: ')
         # logging.error(_SOF)
         # logging.error('_buf: ')
@@ -327,7 +329,7 @@ class FakeSpi:
         # logging.error('FakeSpi.xfer2(input): ')
 
         print('buff:: ')
-        print(numpy.matrix(rotated[0]))
+        print(numpy.matrix(someHugeBullshitThing))
         # logging.error(type(someHugeBullshitThing))
         # logging.error(someHugeBullshitThing)
 
