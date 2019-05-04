@@ -9,37 +9,29 @@ The only example so far can be found in `/unicorn_hadhd/examples/line_rotate/`. 
 I originally set out to incorporate the HatHD board functionality into [Greg Meffords Blinkchain](https://github.com/GregMefford/blinkchain). But the SPI was enough to confuse me into creating my own repo. And subsequently removing all of the interesting and impressive stuff from Gregs code.
 
 ## Usage
+
+Out of box, this is configured for `eth0`. First configure `unicorn_hathd/examples/line_rotate/config/config.exs` according to [nerves-init-gadget](https://github.com/nerves-project/nerves_init_gadget).
+
 #### line rotate
-> cd ./unicorn_hadhd/examples/line_rotate/
-> mix deps.get
-> mix firmware
-> mix firmware.burn
+```
+cd ./unicorn_hadhd/examples/line_rotate/
+mix deps.get
+mix firmware
+mix firmware.burn
+```
 
 Pull it out. Stick it in to target device.
+`ssh nerves.local` Or get into iex on host.
 
+```
+LineRotate.start_link
+```
+This should start what you see in gif.
 
-#### On target
-
-If you are to be updating this code and want to update over ssh, Configure `unicorn_hathd/examples/line_rotate/config/config.exs` according to [nerves-init-gadget](https://github.com/nerves-project/nerves_init_gadget).
+#### Libs
 
 The [UnicornHathd](unicorn_hathd/lib/unicorn_hathd.ex) module has base draw functions.
 
 [UnicornHathd.Matrix](unicorn_hathd/lib/unicorn_hathd/matrix.ex) Does all the Matrix transforms.
 
 [UnicornHathd.Display](unicorn_hathd/lib/unicorn_hathd/display.ex) Wraps the SPI functionality.
-
-
-
-
-Do what you need to do to burn firmware onto sd. I have this setup for `eth0` updates. Change what you need if you are planning on updating through usb. Or just leave alone if you are just in it for the magic.
-ex. of firmware burn:
-
-
-
-On host:
-`ssh nerves.local`
-On device:
-
-
-> mix deps.get
-> Line_rot
